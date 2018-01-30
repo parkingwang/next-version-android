@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/upgrade_found_new_version"
                 android:textColor="#333"
-                android:textSize="@dimen/version_size"/>
+                android:textSize="@dimen/nv_rocket_version_size"/>
 
             <TextView
                 android:id="@+id/version_name"
@@ -47,7 +47,7 @@
                 android:layout_gravity="center_horizontal"
                 android:tag="beta_title"
                 android:textColor="#333"
-                android:textSize="@dimen/version_size"
+                android:textSize="@dimen/nv_rocket_version_size"
                 tools:text="v4.1"/>
         </LinearLayout>
 
@@ -62,24 +62,24 @@
             android:paddingRight="8dp"
             android:tag="beta_upgrade_feature"
             android:textColor="#666"
-            android:textSize="@dimen/message_size"
+            android:textSize="@dimen/nv_rocket_message_size"
             tools:text="1. 界面更新啦\n2. 会员更新啦"/>
 
         <Button
             android:id="@+id/upgrade"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
+            android:layout_height="@dimen/nv_rocket_button_height"
             android:layout_marginTop="20dp"
             android:background="@drawable/upgrade_button_blue"
             android:text="@string/upgrade_update_now"
             android:textColor="@color/upgrade_button_white_text"
-            android:textSize="@dimen/button_text_size"/>
+            android:textSize="@dimen/nv_check_button_text_size"/>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/close"
-        android:layout_width="@dimen/close_image_width"
-        android:layout_height="@dimen/close_image_height"
+        android:layout_width="@dimen/nv_rocket_close_image_width"
+        android:layout_height="@dimen/nv_rocket_close_image_height"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/upgrade_close"/>
