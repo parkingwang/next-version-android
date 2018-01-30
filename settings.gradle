@@ -1,0 +1,7 @@
+include ':app'
+include ':version'
+include ':version-theme-wave'
+include ':version-theme-rocket'
+include ':version-theme-check'
+include ':version-source-fir'
+include ':version-source-pkw'

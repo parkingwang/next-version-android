@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">theme-check</string>
+    <string name="check_new_version">发现最新版本%s</string>
+    <string name="download_percent">下载进度：</string>
+</resources>

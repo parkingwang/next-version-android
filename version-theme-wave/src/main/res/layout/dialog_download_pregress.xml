@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@android:color/transparent"
+             android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_white_2pt"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_marginTop="42dp"
+            android:layout_toRightOf="@+id/progress_bar"
+            android:layout_toEndOf="@+id/progress_bar"
+            android:text="@string/app_on_download"
+            android:textStyle="bold"
+            android:textColor="#3A5064"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/percent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="42dp"
+            android:layout_toRightOf="@+id/progress_bar"
+            android:layout_toEndOf="@+id/progress_bar"
+            android:text="@string/apk_size"
+            android:textColor="#3A5064"
+            android:textSize="12dp"/>
+
+        <com.parkingwang.version.wave.supports.DialogProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            app:ball_color="@android:color/holo_blue_bright"
+            app:ball_radius="5dp"
+            app:duration="3000"
+            app:line_stroke_width="3dp"
+            app:max_value="100"
+            app:normal_color="#D7DEE4"
+            app:progress_color="#1D8FEE"
+            app:progress_line_height="10dp"
+            app:text_color="#3A5064"
+            app:text_size="8pt"/>
+
+    </RelativeLayout>
+</FrameLayout>

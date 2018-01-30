@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/upgrade_header_rocket"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/header"
+        android:layout_alignRight="@id/header"
+        android:layout_below="@id/header"
+        android:background="@drawable/upgrade_content_bg"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upgrade_found_new_version"
+                android:textColor="#333"
+                android:textSize="@dimen/version_size"/>
+
+            <TextView
+                android:id="@+id/version_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:tag="beta_title"
+                android:textColor="#333"
+                android:textSize="@dimen/version_size"
+                tools:text="v4.1"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/release_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:lineSpacingExtra="12dp"
+            android:maxLines="10"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:tag="beta_upgrade_feature"
+            android:textColor="#666"
+            android:textSize="@dimen/message_size"
+            tools:text="1. 界面更新啦\n2. 会员更新啦"/>
+
+        <Button
+            android:id="@+id/upgrade"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/upgrade_button_blue"
+            android:text="@string/upgrade_update_now"
+            android:textColor="@color/upgrade_button_white_text"
+            android:textSize="@dimen/button_text_size"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="@dimen/close_image_width"
+        android:layout_height="@dimen/close_image_height"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/upgrade_close"/>
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Version.Theme.FixedDialog" parent="Base.Theme.AppCompat.Light.Dialog.MinWidth">
+        <!--弹出窗口，点击外部界面不可取消-->
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowBackground">@drawable/bg_transparent_padding_12pt</item>
+    </style>
+
+</resources>

@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.parkingwang.version.wave">
+
+    <application >
+        <activity android:name="com.parkingwang.version.wave.ProgressDialogActivity"
+                  android:theme="@style/Version.Theme.FixedDialog"/>
+    </application>
+
+</manifest>

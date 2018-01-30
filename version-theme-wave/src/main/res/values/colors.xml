@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="version_theme">#1D8FEE</color>
+    <color name="version_theme_pressed">#1d83DB</color>
+    <color name="white">#ffffff</color>
+    <color name="version_theme_wave">#8ec7f7</color>
+</resources>
