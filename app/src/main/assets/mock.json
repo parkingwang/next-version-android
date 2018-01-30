@@ -1,0 +1,13 @@
+{
+  "status": 200,
+  "msg": "success",
+  "data": {
+    "upgradeLevel": 0,
+    "versionCode": 101,
+    "versionName": "4.0.2",
+    "releaseNote": "艾润停车王：自助停车零等待，行业领先",
+    "fileSize": 0,
+    "fileHash": "",
+    "fileUrl": "http://notfound.com/apk.apk"
+  }
+}

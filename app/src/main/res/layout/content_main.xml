@@ -6,17 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="parkingwang.com.nextversion.com.parkingwang.version.app.MainActivity"
     tools:showIn="@layout/activity_main">
-    <com.parkingwang.version.wave.supports.WaveView
-        android:layout_width="match_parent"
-        app:above_wave_color="@color/white"
-        app:blow_wave_color="@color/version_theme_wave"
-        android:background="@color/version_theme"
-        app:wave_hz="normal"
-        app:wave_height="large"
-        app:progress="60"
-        app:wave_length="large"
-        android:layout_height="20pt"/>
 
 </android.support.constraint.ConstraintLayout>
