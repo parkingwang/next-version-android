@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,7 +13,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -24,18 +22,19 @@ import com.parkingwang.version.check.support.DrawHookView;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+
 /**
  * @author 占迎辉 (zhanyinghui@parkingwang.com)
  * @version 2017/10/16
  */
 
 public class VersionDialogFragment extends DialogFragment {
-
+    private static final int TEN_SECOND = 10000;
     private final Required<OnUpgradeClickListener> mListenerRequired = new Required<>();
     private final Required<DownloadListener> mDownloadListenerRequired = new Required<>();
 
-    private static final String ACTION_UPDATE_PROGRESS = "key:next.version:download:progress";
-    private static final String ACTION_UPDATE_COMPLETED = "key:next.version:download:completed";
+    private static final String ACTION_UPDATE_PROGRESS = "ecp:com.parkingwang.version:download:progress";
+    private static final String ACTION_UPDATE_COMPLETED = "ecp:com.parkingwang.version:download:completed";
 
     private static final String KEY_DATA_CLOSABLE = "data:closable";
     private static final String KEY_DATA_VERSION = "data:version";
@@ -62,7 +61,7 @@ public class VersionDialogFragment extends DialogFragment {
                 mStartTime.set(System.currentTimeMillis());
             }
             mProgressView.setValue(progress);
-            mVersionName.setText(getString(R.string.download_percent) + progress + "%");
+            mVersionName.setText(getString(R.string.nv_check_download_percent) + progress + "%");
             // 强制关闭Activity
             if (forceClose(intent)) {
                 VersionDialogFragment.this.dismiss();
@@ -81,7 +80,7 @@ public class VersionDialogFragment extends DialogFragment {
                             }
                         };
                         // 如果下载得太快(少于4s就完成)，则延时0.8秒再退出
-                        if (System.currentTimeMillis() - mStartTime.get() < 10000) {
+                        if (System.currentTimeMillis() - mStartTime.get() < TEN_SECOND) {
                             mDelayHandler.postDelayed(runnable, 800);
                         } else {
                             runnable.run();
@@ -95,24 +94,13 @@ public class VersionDialogFragment extends DialogFragment {
         }
     };
 
-    private void onDrawComplete() {
-        mProgressView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            public void onGlobalLayout() {
-                boolean isOver = mProgressView.drawComplete();
-                if (isOver) {
-                    mDownloadListenerRequired.getChecked().onDownloadSuccess();
-                }
-            }
-        });
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final IntentFilter filter = new IntentFilter(ACTION_UPDATE_PROGRESS);
         filter.addAction(ACTION_UPDATE_COMPLETED);
         getActivity().registerReceiver(mProgressReceiver, filter);
-        setStyle(DialogFragment.STYLE_NO_TITLE, com.parkingwang.version.R.style.Version_Theme_FixedDialog);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.NvStyleCheckDialog);
         setCancelable(false);
     }
 
@@ -155,14 +143,16 @@ public class VersionDialogFragment extends DialogFragment {
         setupUpgradeButton(view, R.id.upgrade);
         mProgressView = (DrawHookView) view.findViewById(R.id.progress_view);
         mVersionName = (TextView) view.findViewById(R.id.version_name);
-        mVersionName.setText(getString(R.string.check_new_version, "4.7.0"));
+        TextView message = (TextView) view.findViewById(R.id.update_message);
+        mVersionName.setText(getString(R.string.nv_check_check_new_version, String.valueOf(getVersionInfo().name)));
+        message.setText(getVersionInfo().releaseNote);
 
     }
 
     public void show(FragmentActivity activity, OnUpgradeClickListener onUpgradeClickListener, DownloadListener downloadListener) {
         mListenerRequired.set(onUpgradeClickListener);
         mDownloadListenerRequired.set(downloadListener);
-        if (!activity.isFinishing() || Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && !activity.isDestroyed()) {
+        if (!activity.isFinishing()) {
             show(activity.getSupportFragmentManager(), getTag());
         }
 

@@ -9,6 +9,7 @@ import com.parkingwang.version.VersionFoundHandler;
 import com.parkingwang.version.support.ContextX;
 import com.parkingwang.version.support.Priority;
 
+
 /**
  * @author 占迎辉 (zhanyinghui@parkingwang.com)
  * @version 2017/10/16
@@ -38,7 +39,8 @@ public class CheckVersionHandler extends ContextX implements VersionFoundHandler
         if (!Version.UpgradeLevel.FORCE_INSTALL.equals(version.upgradeLevel)) {
             // 强制级别不可取消
             final boolean closable = !Version.UpgradeLevel.FORCE_EACH.equals(version.upgradeLevel);
-            VersionDialogFragment dialogFragment = VersionDialogFragment.newInstance(version, closable);
+            final VersionDialogFragment dialogFragment = VersionDialogFragment.newInstance(version, closable);
+            Log.e("ssss", "显示弹窗");
             dialogFragment.show(mActivity, new VersionDialogFragment.OnUpgradeClickListener() {
                 @Override
                 public void onClick(Version version) {
@@ -48,6 +50,7 @@ public class CheckVersionHandler extends ContextX implements VersionFoundHandler
             }, new VersionDialogFragment.DownloadListener() {
                 @Override
                 public void onDownloadSuccess() {
+                    Log.e("ssss", "开始安装");
                     engine.install(version);
                 }
             });

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="version_size">18sp</dimen>
-    <dimen name="margin">16dp</dimen>
+    <dimen name="nv_check_version_size">18sp</dimen>
+    <dimen name="nv_check_margin">16dp</dimen>
 </resources>

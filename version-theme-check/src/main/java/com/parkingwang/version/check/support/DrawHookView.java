@@ -10,33 +10,35 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.parkingwang.version.check.R;
+
+
 /**
  * @author 占迎辉 (zhanyinghui@parkingwang.com)
  * @version 2017/10/19
  */
 
 public class DrawHookView extends View {
+
     private final int SHADOW_COLOR = Color.parseColor("#b1ffda");
     private final int IN_CIRCLE_COLOR = Color.parseColor("#ffffff");
     private final int OUT_CIRCLE_COLOR = Color.parseColor("#88ffffff");
+    private final int MAX_PROGRESS = 100;
     private Paint paint = new Paint();
     private Paint lightPaint = new Paint();
     private Bitmap mBitmap;
     private Paint pathPaint = new Paint();
-    //绘制圆弧的进度值
+
     private long progress = 0;
-    //线1的x轴
-    private int line1_x = 0;
-    //线1的y轴
-    private int line1_y = 0;
-    //线2的x轴
-    private int line2_x = 0;
-    //线2的y轴
-    private int line2_y = 0;
+    private int mLine1X = 0;
+    private int mLine1Y = 0;
+    private int mLine2X = 0;
+    private int mLine2Y = 0;
+
     private boolean isComplete = false;
     private boolean isOver = false;
     private int mCenter;
@@ -71,7 +73,9 @@ public class DrawHookView extends View {
         paint.setStrokeWidth(8);
 
         //设置画笔颜色
-        setLayerType(View.LAYER_TYPE_SOFTWARE, lightPaint);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, lightPaint);
+        }
         lightPaint.setColor(IN_CIRCLE_COLOR);
         lightPaint.setAlpha(255);
         //设置圆弧的宽度
@@ -82,7 +86,9 @@ public class DrawHookView extends View {
         lightPaint.setShadowLayer(12, 0, 0, SHADOW_COLOR);
         lightPaint.setAntiAlias(true);
 
-        setLayerType(View.LAYER_TYPE_SOFTWARE, pathPaint);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, pathPaint);
+        }
         pathPaint.setColor(IN_CIRCLE_COLOR);
         pathPaint.setAlpha(255);
         pathPaint.setStyle(Paint.Style.STROKE);
@@ -97,7 +103,7 @@ public class DrawHookView extends View {
         if (!isComplete) {
             drawBitmap(canvas);
         }
-        if (progress < 100) {
+        if (progress < MAX_PROGRESS) {
             //获取圆心的x坐标
             mCenter = getWidth() / 2;
             mCenter1 = mCenter - getWidth() / 5;
@@ -115,35 +121,37 @@ public class DrawHookView extends View {
          * 绘制对勾
          */
         //先等圆弧画完，才话对勾
-        if (progress == 100) {
+        if (progress == MAX_PROGRESS) {
             //定义的圆弧的形状和大小的界限
             RectF rectF = new RectF(mCenter - mRadius, mCenter - mRadius, mCenter + mRadius, mCenter + mRadius);
             //根据进度画
             // 圆弧
             canvas.drawArc(rectF, -90, 360 * progress / 100, false, lightPaint);
             setComplete();
-            if (line1_x < mRadius / 3) {
-                line1_x++;
-                line1_y++;
+            //半径的三分之一
+            int line1x = mRadius / 3;
+            if (mLine1X < line1x) {
+                mLine1X++;
+                mLine1Y++;
             }
             pathPaint.setStrokeWidth(16);
             //画第一根线
-            canvas.drawLine(mCenter1, mCenter, mCenter1 + line1_x + 4, mCenter + line1_y + 4, pathPaint);
+            canvas.drawLine(mCenter1, mCenter, mCenter1 + mLine1X + 4, mCenter + mLine1Y + 4, pathPaint);
 
-            if (line1_x == mRadius / 3) {
-                line2_x = line1_x;
-                line2_y = line1_y;
-                line1_x++;
-                line1_y++;
+            if (mLine1X == line1x) {
+                mLine2X = mLine1X;
+                mLine2Y = mLine1Y;
+                mLine1X++;
+                mLine1Y++;
             }
-            if (line1_x >= mRadius / 3 && line2_x <= mRadius) {
-                line2_x++;
-                line2_y--;
+            if (mLine1X >= line1x && mLine2X <= mRadius) {
+                mLine2X++;
+                mLine2Y--;
             }
             //画第二根线
-            canvas.drawLine(mCenter1 + line1_x - 1, mCenter + line1_y, mCenter1 + line2_x, mCenter + line2_y, pathPaint);
+            canvas.drawLine(mCenter1 + mLine1X - 1, mCenter + mLine1Y, mCenter1 + mLine2X, mCenter + mLine2Y, pathPaint);
             canvas.save();
-            if (line2_x == mRadius) {
+            if (mLine2X == mRadius) {
                 mOnCompleteListener.onDrawComplete();
             }
         }
@@ -177,7 +185,7 @@ public class DrawHookView extends View {
 
 
     public void setValue(long percent) {
-        if (percent > 100) {
+        if (percent > MAX_PROGRESS) {
             throw new IllegalArgumentException("percent must less than 100!");
         }
         setCurPercent(percent);
