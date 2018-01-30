@@ -18,7 +18,7 @@ repositories {
 
 NextVersion 项目分为多个子模块。包括核心模块和UI扩展模块：
 
-> VERSION= 1.0.1
+> VERSION= 1.0.2
 
 ```gradle
 compile 'com.parkingwang:version:{VERSION}'
