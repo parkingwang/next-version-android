@@ -3,6 +3,7 @@ package com.parkingwang.version.vhandler;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.parkingwang.version.AppLogger;
 import com.parkingwang.version.NextVersion;
 import com.parkingwang.version.Version;
 import com.parkingwang.version.VersionFoundHandler;
@@ -38,6 +39,7 @@ public class DailyUpgradeVersionHandler extends ContextX implements VersionFound
                 updateTime(sp);
                 return false;
             }else{
+                AppLogger.d("新版本显示规则：每日仅显示1次，本次拦截");
                 return true; // 拦截后续版本提示
             }
         }else{

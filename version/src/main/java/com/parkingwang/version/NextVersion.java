@@ -209,6 +209,7 @@ public class NextVersion {
                 if (newVersion.isValid()) {
                     AppLogger.d("发现新版本: " + newVersion);
                     for (VersionFoundHandler handler : mVersionFoundHandlers) {
+                        AppLogger.d("FoundHandler正在处理: " + handler.getClass());
                         if (handler.handle(NextVersion.this, newVersion)) {
                             break;
                         }
